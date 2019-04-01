@@ -1,18 +1,19 @@
 package io.battlesnake.starter;
 
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static spark.Spark.port;
-import static spark.Spark.post;
-import static spark.Spark.get;
 
 /**
  * Snake server that deals with requests from the snake engine. Just boiler plate code.  See the readme to get started.
@@ -140,8 +141,19 @@ public class Snake
        */
       public Map<String, String> move( JsonNode moveRequest )
       {
-         Map<String, String> response = new HashMap<>();
-         response.put( "move", "left" );
+         final MovementEvaluator movementEvaluator = new MovementEvaluator( moveRequest );
+
+         final Map<String, String> response = new HashMap<>();
+         final List<String> possibleDirections = movementEvaluator.checkPossibleDirections();
+
+         for (String element : possibleDirections)
+         {
+            System.out.println( "Possible Direction: " + element );
+         }
+
+         final String direction = possibleDirections.iterator().next();
+
+         response.put( "move", direction );
          return response;
       }
 
