@@ -141,10 +141,10 @@ public class Snake
        */
       public Map<String, String> move( JsonNode moveRequest )
       {
-         final MovementEvaluator movementEvaluator = new MovementEvaluator( moveRequest );
+         final GeneralMovementEvaluator generalMovementEvaluator = new GeneralMovementEvaluator( moveRequest );
 
          final Map<String, String> response = new HashMap<>();
-         final List<String> possibleDirections = movementEvaluator.checkPossibleDirections();
+         final List<String> possibleDirections = generalMovementEvaluator.checkPossibleDirections();
 
          for (String element : possibleDirections)
          {

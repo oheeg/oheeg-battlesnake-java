@@ -1,15 +1,15 @@
 package io.battlesnake.starter;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
-class MovementEvaluator
+class GeneralMovementEvaluator
 {
    private final JsonNode moveRequest;
 
-   MovementEvaluator(final JsonNode moveRequest)
+   GeneralMovementEvaluator(final JsonNode moveRequest)
    {
       this.moveRequest = moveRequest;
    }
@@ -112,34 +112,28 @@ class MovementEvaluator
       final int currentY = getSnakeBody().get( 0 ).get( "y" ).asInt();
 
       if (currentY == height - 1)
-      {
          System.out.println( "Lower wall reached" );
-      }
 
       return currentY == height - 1;
    }
 
    private boolean lowerRightCornerReached()
    {
-      System.out.println( "Lower Right Corner Reached." );
       return lowerWallReached() && rightWallReached();
    }
 
    private boolean upperRightCornerReached()
    {
-      System.out.println( "Upper Right Corner Reached." );
       return upperWallReached() && rightWallReached();
    }
 
    private boolean upperLeftCornerReached()
    {
-      System.out.println( "Upper Left Corner Reached." );
       return upperWallReached() && leftWallReached();
    }
 
    private boolean lowerLeftCornerReached()
    {
-      System.out.println( "Lower Left Corner Reached." );
       return lowerWallReached() && leftWallReached();
    }
 
