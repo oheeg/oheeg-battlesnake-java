@@ -1,19 +1,24 @@
 package io.battlesnake.movement;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.battlesnake.api.GeneralMovementEvaluator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class GeneralMovementEvaluator
+public class GeneralMovementEvaluatorImpl implements GeneralMovementEvaluator
 {
   private final JsonNode moveRequest;
+  private final Map<Integer, Integer> snakeCoordinates = new HashMap<>();
 
-  public GeneralMovementEvaluator( final JsonNode moveRequest )
+  public GeneralMovementEvaluatorImpl( final JsonNode moveRequest )
   {
     this.moveRequest = moveRequest;
   }
 
+  @Override
   public List<String> checkPossibleDirections()
   {
     final List<String> possibleDirections = new ArrayList<>();
@@ -174,5 +179,17 @@ public class GeneralMovementEvaluator
   private JsonNode getSnakeBody()
   {
     return moveRequest.get("you").get("body");
+  }
+
+  private Map<Integer, Integer> getSnakeBodyAsMap()
+  {
+    final JsonNode snakeBody = getSnakeBody();
+
+    for (int i = 0; i < snakeBody.size(); i++)
+    {
+      final JsonNode element = snakeBody.get(i);
+      snakeCoordinates.put(element.get("x").asInt(), element.get("y").asInt());
+    }
+    return snakeCoordinates;
   }
 }
