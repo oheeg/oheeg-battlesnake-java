@@ -1,22 +1,21 @@
-package io.battlesnake.starter;
+package io.battlesnake.operations;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.HashMap;
 import java.util.Map;
 
-class FoodLocator
+public class FoodLocator
 {
-
   private final JsonNode moveRequest;
   private final Map<Integer, Integer> foodLocations = new HashMap<>();
 
-  FoodLocator( final JsonNode moveRequest )
+  public FoodLocator( final JsonNode moveRequest )
   {
     this.moveRequest = moveRequest;
   }
 
-  Map<Integer, Integer> getAllAvailableFoodPositions()
+  public Map<Integer, Integer> getAllAvailableFoodPositions()
   {
     final JsonNode food = moveRequest.get("board").get("food");
 

@@ -1,20 +1,20 @@
-package io.battlesnake.starter;
+package io.battlesnake.movement;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class GeneralMovementEvaluator
+public class GeneralMovementEvaluator
 {
   private final JsonNode moveRequest;
 
-  GeneralMovementEvaluator( final JsonNode moveRequest )
+  public GeneralMovementEvaluator( final JsonNode moveRequest )
   {
     this.moveRequest = moveRequest;
   }
 
-  List<String> checkPossibleDirections()
+  public List<String> checkPossibleDirections()
   {
     final List<String> possibleDirections = new ArrayList<>();
     possibleDirections.add("up");

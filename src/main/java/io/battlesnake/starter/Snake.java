@@ -3,6 +3,8 @@ package io.battlesnake.starter;
 import static spark.Spark.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.battlesnake.movement.GeneralMovementEvaluator;
+import io.battlesnake.operations.FoodLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
@@ -135,18 +137,12 @@ public class Snake
      */
     public Map<String, String> move( JsonNode moveRequest )
     {
+      final Map<String, String> response = new HashMap<>();
       final GeneralMovementEvaluator generalMovementEvaluator = new GeneralMovementEvaluator(moveRequest);
       final FoodLocator foodLocator = new FoodLocator(moveRequest);
 
-      final Map<Integer, Integer> allAvailableFoodPositions = foodLocator.getAllAvailableFoodPositions();
-
-      final Map<String, String> response = new HashMap<>();
       final List<String> possibleDirections = generalMovementEvaluator.checkPossibleDirections();
-
-      for (String element : possibleDirections)
-      {
-        System.out.println("Possible Direction: " + element);
-      }
+      final Map<Integer, Integer> allAvailableFoodPositions = foodLocator.getAllAvailableFoodPositions();
 
       final String direction = possibleDirections.iterator().next();
 
