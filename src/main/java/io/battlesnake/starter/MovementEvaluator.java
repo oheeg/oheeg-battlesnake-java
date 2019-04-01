@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class MovementEvaluator
+class MovementEvaluator
 {
    private final JsonNode moveRequest;
 
-   public MovementEvaluator( final JsonNode moveRequest )
+   MovementEvaluator(final JsonNode moveRequest)
    {
       this.moveRequest = moveRequest;
    }
@@ -41,28 +41,28 @@ public class MovementEvaluator
       return possibleDirections;
    }
 
-   boolean canGoRight()
+   private boolean canGoRight()
    {
       final boolean willBite = willBiteOwnBodyInDirection( "right" );
 
       return !rightWallReached() && !willBite && !upperRightCornerReached() && !lowerRightCornerReached();
    }
 
-   boolean canGoLeft()
+   private boolean canGoLeft()
    {
       final boolean willBite = willBiteOwnBodyInDirection( "left" );
 
       return !leftWallReached() && !willBite && !upperLeftCornerReached() && !lowerLeftCornerReached();
    }
 
-   boolean canGoUp()
+   private boolean canGoUp()
    {
       final boolean willBite = willBiteOwnBodyInDirection( "up" );
 
       return !upperWallReached() && !willBite && !upperLeftCornerReached() && !upperRightCornerReached();
    }
 
-   boolean canGoDown()
+   private boolean canGoDown()
    {
       final boolean willBite = willBiteOwnBodyInDirection( "down" );
 
